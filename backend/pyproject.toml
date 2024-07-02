@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["Reinaldo Silva <josereinaldo.pessoal@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+package-mode = true
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.111.0"
+celery = "^5.4.0"
+python-decouple = "^3.8"
+pydantic-settings = "^2.3.4"
+sqlalchemy = "^2.0.31"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

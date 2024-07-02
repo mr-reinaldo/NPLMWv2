@@ -1,0 +1,76 @@
+services:
+
+  api:
+    build: .
+    container_name: api
+    command: bash -c 'python app/main.py'
+    restart: always
+    environment:
+      API_SERVER_HOST: ${API_SERVER_HOST}
+      API_SERVER_PORT: ${API_SERVER_PORT}
+      API_JWT_SECRET_KEY: ${API_JWT_SECRET_KEY}
+      API_JWT_EXPIRE_MINUTES: ${API_JWT_EXPIRE_MINUTES}
+      API_JWT_ALGORITHM: ${API_JWT_ALGORITHM}
+      DATABASE_ECHO: ${DATABASE_ECHO}
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - ${API_SERVER_PORT}:${API_SERVER_PORT}
+    depends_on:
+      - postgres
+    networks:
+      - nplwm-app
+
+  postgres:
+    image: postgres:16.3-alpine3.20
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - nplwm-app
+
+  rabbitmq:
+    image: rabbitmq:3.13.3-management-alpine
+    container_name: rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_VHOST}
+
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - nplwm-app
+
+  celery:
+    build: .
+    container_name: celery
+    command: celery -A app.worker worker --loglevel=INFO
+    restart: always
+    environment:
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - nplwm-app
+
+volumes:
+  postgres-data:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+
+networks:
+  nplwm-app:
+    driver: bridge
