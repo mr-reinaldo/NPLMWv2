@@ -26,16 +26,10 @@ class DatabaseSettings(BaseModel):
     echo: bool = env_config("DATABASE_ECHO", cast=bool)
 
 
-# class CelerySettings(BaseModel):
-#     broker_url: AmqpDsn = env_config("CELERY_BROKER_URL", cast=str)
-#     result_backend: PostgresDsn = env_config("CELERY_RESULT_BACKEND", cast=str)
-
-
 class Settings(BaseSettings):
     api: APISettings = APISettings()
     jwt: JWTSettings = JWTSettings()
     database: DatabaseSettings = DatabaseSettings()
-    # celery: CelerySettings = CelerySettings()
 
 
 settings = Settings()
