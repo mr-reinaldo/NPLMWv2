@@ -13,6 +13,11 @@ celery = "^5.4.0"
 python-decouple = "^3.8"
 pydantic-settings = "^2.3.4"
 sqlalchemy = "^2.0.31"
+alembic = "^1.13.2"
+asyncpg = "^0.29.0"
+pyjwt = "^2.8.0"
+python-multipart = "^0.0.9"
+pwdlib = {extras = ["argon2"], version = "^0.2.0"}
 
 
 [build-system]
