@@ -40,5 +40,7 @@ RUN chown -R appuser:appuser /backend
 USER appuser
 
 # Copia os arquivos do projeto
+COPY ./backend/alembic /backend/alembic
+COPY ./backend/alembic.ini /backend/alembic.ini
 COPY ./backend/app /backend/app
 COPY ./backend/tests /backend/tests

@@ -18,7 +18,7 @@ class Security:
     def create_access_token(self, data: dict) -> str:
 
         to_encode = data.copy()
-        expire = datetime.now(tz=ZoneInfo(settings.timezone.timezone)) + timedelta(
+        expire = datetime.now(tz=ZoneInfo(settings.zone.timezone)) + timedelta(
             minutes=settings.jwt.expire_minutes
         )
 

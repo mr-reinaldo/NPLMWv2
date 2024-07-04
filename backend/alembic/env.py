@@ -18,6 +18,7 @@ config = context.config
 
 # ? Está linha é necessária para que o Alembic modifique a URL do banco de dados para a URL correta.
 config.set_main_option("sqlalchemy.url", settings.database.url)
+config.set_main_option("timezone", settings.zone.timezone)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

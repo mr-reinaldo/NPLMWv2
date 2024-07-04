@@ -3,7 +3,7 @@ services:
   api:
     build: .
     container_name: api
-    command: bash -c 'python app/main.py'
+    command: bash -c 'alembic upgrade head && python app/main.py'
     restart: always
     environment:
       API_SERVER_HOST: ${API_SERVER_HOST}
@@ -13,6 +13,7 @@ services:
       API_JWT_ALGORITHM: ${API_JWT_ALGORITHM}
       DATABASE_ECHO: ${DATABASE_ECHO}
       DATABASE_URL: ${DATABASE_URL}
+      TIMEZONE: ${TIMEZONE}
     ports:
       - ${API_SERVER_PORT}:${API_SERVER_PORT}
     depends_on:
@@ -28,6 +29,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+      TZ: ${TIMEZONE}
     volumes:
       - postgres-data:/var/lib/postgresql/data
     ports:

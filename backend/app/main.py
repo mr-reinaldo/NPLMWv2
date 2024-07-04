@@ -5,6 +5,9 @@ from contextlib import asynccontextmanager
 from app.core.database import close_db_connection
 from app.core.settings import settings
 
+from app.routers.user import router as user_router
+from app.routers.device import router as device_router
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -25,9 +28,15 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
+app.include_router(user_router, prefix=settings.api.api_prefix)
+app.include_router(device_router, prefix=settings.api.api_prefix)
+
+
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {
+        "message": "Bem-vindo ao projeto de exemplo FastAPI com SQLAlchemy e PostgreSQL"
+    }
 
 
 if __name__ == "__main__":

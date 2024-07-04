@@ -21,6 +21,10 @@ class JWTSettings(BaseModel):
     expire_minutes: int = env_config("API_JWT_EXPIRE_MINUTES", cast=int)
 
 
+class TimezoneSettings(BaseModel):
+    timezone: str = env_config("TIMEZONE", cast=str)
+
+
 class DatabaseSettings(BaseModel):
     url: PostgresDsn = env_config("DATABASE_URL", cast=str)
     echo: bool = env_config("DATABASE_ECHO", cast=bool)
@@ -29,6 +33,7 @@ class DatabaseSettings(BaseModel):
 class Settings(BaseSettings):
     api: APISettings = APISettings()
     jwt: JWTSettings = JWTSettings()
+    zone: TimezoneSettings = TimezoneSettings()
     database: DatabaseSettings = DatabaseSettings()
 
 

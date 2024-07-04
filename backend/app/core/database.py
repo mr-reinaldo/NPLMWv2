@@ -6,7 +6,7 @@ from app.core.settings import settings
 
 
 engine: AsyncEngine = create_async_engine(
-    url=settings.database.database_url,
+    url=settings.database.url,
     poolclass=NullPool,
     echo=settings.database.echo,
 )
