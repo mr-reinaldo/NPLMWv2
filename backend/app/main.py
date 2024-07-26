@@ -7,6 +7,7 @@ from app.core.settings import settings
 
 from app.routers.user import router as user_router
 from app.routers.device import router as device_router
+from app.routers.cisco_ios import router as cisco_ios_router
 
 
 @asynccontextmanager
@@ -30,6 +31,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.include_router(user_router, prefix=settings.api.api_prefix)
 app.include_router(device_router, prefix=settings.api.api_prefix)
+app.include_router(cisco_ios_router, prefix=settings.api.api_prefix)
 
 
 @app.get("/")

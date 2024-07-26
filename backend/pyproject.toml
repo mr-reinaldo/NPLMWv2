@@ -18,6 +18,8 @@ asyncpg = "^0.29.0"
 pyjwt = "^2.8.0"
 python-multipart = "^0.0.9"
 pwdlib = {extras = ["argon2"], version = "^0.2.0"}
+netmiko = {git = "https://github.com/ktbyers/netmiko.git", rev = "develop"}
+ntc-templates = "^5.1.0"
 
 
 [build-system]
